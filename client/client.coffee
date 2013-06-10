@@ -7,6 +7,10 @@ Meteor.subscribe "parties"
 Template.details.party = ->
 	Parties.findOne Session.get("selected")
 
+Template.details.events
+	'click .rsvp-yes' : ->
+		Meteor.call 'attend', Session.get('selected')
+
 # ## Map area
 
 coordsRelativeToElement = (event, element) ->

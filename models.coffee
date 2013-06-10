@@ -19,9 +19,7 @@ Parties.allow
 	remove: (user_id, party) ->
 		party.owner is user_id
 
-NonEmptyString = Match.Where (str) ->
-	check str, String
-	str.length isnt 0
+# ## Methods
 
 Meteor.methods
 	create_party: (options) ->
@@ -46,41 +44,19 @@ Meteor.methods
 			description: options.description
 			location: options.location
 			host: options.host
-			rsvps: []
+			attendees: 0
 
-	#rsvp: (party_id, rsvp) ->
-		# check party_id, String
-		# check rsvp, String
+	attend: (party_id) ->
+		check party_id, String
 
-		# if not _.contains ['ja', 'nej', 'kanske'], rsvp
-		# 	throw new Meteor.Error 400, "Felaktigt svar"
+		party = Parties.findOne party_id
+		throw new Meteor.Error 400, "Festen existerar inte" unless party
 
-		# party = Parties.findOne party_id
+		Parties.update {_id: party_id}, {$inc: {attendees: 1}}
 
-		# unless party
-		# 	throw new Meteor.Error 400, "Festen existerar inte"
-
-		# rsvp_index = _.indexOf( _.pluck party.rsvps, 'user', @user_id )
-
-		# if rsvp_index isnt -1
-		# 	if Meteor.isServer
-		# 		Parties.update
-		# 			{_id: party_id},
-		# 			{$set: {"rsvps.$.rsvp": rsvp}}
-
-		# 	else
-		# 		modifier = {$set: {}}
-		# 		modifier.$set['rsvps' + 'rsvpIndex' + ".rsvp"] = rsvp
-
-		# 		Parties.update party_id, modifier
-
-		# else
-		# 	Parties.update party_id,
-		# 		$push: {rsvps: {user: @user_id}}
-
-
-
-
+NonEmptyString = Match.Where (str) ->
+	check str, String
+	str.length isnt 0
 
 
 
