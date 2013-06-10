@@ -67,6 +67,7 @@ h2 {
     text-anchor: middle;
     fill: white;
     font-weight: bold;
+    cursor: pointer;
 }
 
 .map circle.callout {
