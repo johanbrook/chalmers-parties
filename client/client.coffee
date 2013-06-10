@@ -19,8 +19,7 @@ Template.details.party = ->
 
 Template.attendees.events
 	'click #rsvp-yes' : (event, template) ->
-		Meteor.call 'attend', Session.get('selected'), Meteor.userId()
-		#$(event.currentTarget).attr("disabled", true).val("Wohoo!").remove()
+		attend_party()
 
 Template.attendees.is_attending = ->
 	attendees = Parties.findOne(Session.get 'selected').attendees
@@ -143,6 +142,8 @@ Template.createPopup.events
 Template.createPopup.error = ->
 	Session.get 'createError'
 
+# ## Helpers
+
 add_party = (party) ->
 	Meteor.call 'create_party',
 		description: party.description
@@ -151,7 +152,11 @@ add_party = (party) ->
 		x: party.coords.x
 		y: party.coords.y
 	, (error, the_party) ->
-		Session.set 'selected', the_party unless error
+		unless error
+			Session.set 'selected', the_party
+			attend_party(the_party)
 
+attend_party = (party) ->
+	Meteor.call 'attend', party or Session.get('selected'), Meteor.userId()
 
 
