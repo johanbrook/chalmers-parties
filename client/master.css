@@ -11,6 +11,7 @@ body {
 h1 {
 	font-weight: 300;
 	margin: 0 0 0.5em;
+	font-size: 2em;
 }
 
 h2 {
@@ -36,6 +37,25 @@ h2 {
 	float: left;
 	padding: 1em 1%;
 	width: 40%;
+}
+
+.party-details {
+	text-align: left;
+	width: 50%;
+}
+
+.party-details th {
+	font-weight: bold;
+	border-right: 1px solid #ddd;
+}
+
+.party-details td,
+.party-details th {
+	padding: 5px 10px;
+}
+
+.party-details tr:first-child * {
+	border-bottom: 1px solid #ddd;
 }
 
 .map circle {

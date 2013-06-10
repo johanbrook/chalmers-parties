@@ -21,8 +21,11 @@
 		{{#if party}}
 			{{#with party}}
 				<h1>{{description}}</h1>
-				<strong>Plats:</strong> {{location}}
-				{{#if host}} | <strong>Vem?</strong> {{host}} {{/if}}
+
+				<table class="party-details" cellspacing="0">
+					<tr><th>Plats?</th><td>{{location}}</td></tr>
+					<tr><th>Vem?</th><td>{{host}}</td></tr>
+				</table>
 			{{/with}}
 		{{else}}
 			<h1 class="muted">"Var är festen?"</h1>
