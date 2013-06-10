@@ -1,0 +1,79 @@
+<head>
+  	<title>Var är festen?</title>
+  	<meta name="viewport" content="width=device-width, initial-scale=1.0">
+</head>
+
+<body>
+	{{> page}}
+</body>
+
+<template name="page">
+	{{> map}}
+	{{> details}}
+
+	{{#if showCreatePopup}}
+		{{> createPopup}}
+	{{/if}}
+</template>
+
+<template name="details">
+	<section class="details">
+		{{#if party}}
+			{{#with party}}
+				<h1>{{description}}</h1>
+				<strong>Plats:</strong> {{location}}
+				{{#if host}} | <strong>Vem?</strong> {{host}} {{/if}}
+			{{/with}}
+		{{else}}
+			<h1 class="muted">"Var är festen?"</h1>
+			
+			<p class="muted">
+			{{#if anyParties}}
+				Klicka på en fest för info.
+			{{else}}
+				Dubbelklicka någonstans på kartan för att posta en ny fest på den platsen.
+			{{/if}}
+			</p>
+
+		{{/if}}
+	</section>
+</template>
+
+<template name="map">
+	<div class="map">
+		{{#constant}}
+			<svg width="730" height="700">
+				<circle class="callout" cx="-100" cy="-100"></circle>
+				<g class="circles"></g>
+				<g class="labels"></g>
+			</svg>
+		{{/constant}}
+	</div>
+</template>
+
+<template name="createPopup">
+	<section class="create-popup">
+		<header>
+			<h2>Lägg till fest</h2>
+			<a class="close">×</a>
+		</header>
+
+		{{#if error}}
+		<p class="msg negative">{{error}}</p>
+		{{/if}}
+
+		<label>Kort beskrivning</label>
+		<input type="text" class="description" placeholder="Ex. 'Jägerrock som fan'" />
+		
+
+		<label>Plats</label>
+		<input type="text" class="location" placeholder="Ex. 'Hubben'" />
+
+		<label>Vem?</label>
+		<input type="text" class="host" placeholder="Ex. 'sexIT'" />
+
+		<footer>
+			<input type="button" class="save" value="Lägg till" />
+		</footer>
+	</section>
+</template>
