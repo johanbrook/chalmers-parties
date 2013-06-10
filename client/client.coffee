@@ -117,6 +117,7 @@ show_create_popup_at_coords = (coords) ->
 	[width, height] = [$popup.outerWidth(), $popup.outerHeight()]
 
 	$popup.css top: coords.y-height-10, left: coords.x - (width / 2) + 10
+	$popup.find("input:first").focus()
 
 Template.page.showCreatePopup = ->
 	Session.get 'showCreatePopup'
