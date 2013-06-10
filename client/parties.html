@@ -53,13 +53,15 @@
 </template>
 
 <template name="attendees">
-	<strong>{{attendees.length}} personer festar järnet här</strong>
+	<div class="attendees">
+		<strong class="attendees-count"><mark>{{attendees.length}}</mark> personer festar järnet här</strong>
 	
-	{{#if is_attending}}
-	<div class="rsvp">
-		<input type="button" value="Jag kommer!" id="rsvp-yes" />
+		{{#if is_attending}}
+		<div class="rsvp">
+			<input type="button" value="Jag kommer!" id="rsvp-yes" />
+		</div>
+		{{/if}}
 	</div>
-	{{/if}}
 </template>
 
 <template name="createPopup">
