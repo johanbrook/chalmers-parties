@@ -4,7 +4,8 @@
 # but you can also edit it by hand.
 
 insecure
-preserve-inputs
 coffeescript
 underscore
 d3
+preserve-inputs
+accounts-base

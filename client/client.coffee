@@ -2,14 +2,30 @@
 
 Meteor.subscribe "parties"
 
+Meteor.loginAnonymously = (fn) ->
+	Meteor.call 'login', anonymous: true, (err, user) ->
+		Accounts._makeClientLoggedIn(user.id, user.token)
+		fn? and fn()
+
+Meteor.startup ->
+	Meteor.loginAnonymously()
 
 # ## Details area
+
 Template.details.party = ->
 	Parties.findOne Session.get("selected")
 
-Template.details.events
-	'click .rsvp-yes' : ->
-		Meteor.call 'attend', Session.get('selected')
+# ## Attendees area
+
+Template.attendees.events
+	'click #rsvp-yes' : (event, template) ->
+		Meteor.call 'attend', Session.get('selected'), Meteor.userId()
+		#$(event.currentTarget).attr("disabled", true).val("Wohoo!").remove()
+
+Template.attendees.is_attending = ->
+	attendees = Parties.findOne(Session.get 'selected').attendees
+	not _.contains attendees, Meteor.userId()
+
 
 # ## Map area
 

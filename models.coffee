@@ -44,21 +44,26 @@ Meteor.methods
 			description: options.description
 			location: options.location
 			host: options.host
-			attendees: 0
+			attendees: []
 
-	attend: (party_id) ->
+	attend: (party_id, user_id) ->
 		check party_id, String
+		check user_id, String
 
-		party = Parties.findOne party_id
+		party = Parties.findOne(party_id)
 		throw new Meteor.Error 400, "Festen existerar inte" unless party
 
-		Parties.update {_id: party_id}, {$inc: {attendees: 1}}
+		user = Meteor.users.findOne(user_id)
+		throw new Meteor.Error 400, "Användaren existerar inte" unless party
+
+		Parties.update party_id, {$addToSet: {attendees: user_id}}
 
 NonEmptyString = Match.Where (str) ->
 	check str, String
 	str.length isnt 0
 
-
+root.attending = (party) ->
+	party.attendees.length
 
 
 

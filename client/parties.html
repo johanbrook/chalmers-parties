@@ -27,11 +27,7 @@
 					<tr><th>Vem?</th><td>{{host}}</td></tr>
 				</table>
 
-				<strong>{{attendees}} personer festar järnet här</strong>
-
-				<div class="rsvp">
-					<input type="button" value="Jag kommer!" class="rsvp-yes" />
-				</div>
+				{{> attendees}}
 			{{/with}}
 		{{else}}
 			<h1 class="muted">"Var är festen?"</h1>
@@ -54,6 +50,16 @@
 			</svg>
 		{{/constant}}
 	</div>
+</template>
+
+<template name="attendees">
+	<strong>{{attendees.length}} personer festar järnet här</strong>
+	
+	{{#if is_attending}}
+	<div class="rsvp">
+		<input type="button" value="Jag kommer!" id="rsvp-yes" />
+	</div>
+	{{/if}}
 </template>
 
 <template name="createPopup">
