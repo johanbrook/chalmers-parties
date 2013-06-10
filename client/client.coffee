@@ -7,9 +7,6 @@ Meteor.subscribe "parties"
 Template.details.party = ->
 	Parties.findOne Session.get("selected")
 
-Template.details.anyParties = ->
-	Parties.find().count() > 0
-
 # ## Map area
 
 coordsRelativeToElement = (event, element) ->
