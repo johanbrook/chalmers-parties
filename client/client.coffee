@@ -123,6 +123,10 @@ Template.page.showCreatePopup = ->
 	Session.get 'showCreatePopup'
 
 Template.createPopup.events
+	'keydown' : (event, template) ->
+		if event.which is 13
+			$(template.find(".save")).trigger("click")
+
 	'click .save' : (event, template) ->
 		party = 
 			description: template.find(".description").value
