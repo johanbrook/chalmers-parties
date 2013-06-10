@@ -107,8 +107,15 @@ label {
 	display: block;
 }
 
+.create-popup footer {
+	margin-top: .5em;
+}
+
 .create-popup .save {
 	float: right;
+	font-size: .9em;
+	background-color: #129DC7;
+	box-shadow: #1A738F 0 3px 0;
 }
 
 .create-popup .close {
