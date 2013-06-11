@@ -42,8 +42,7 @@ Template.map.events
 		
 		Session.set 'createCoords', x: coords.x, y: coords.y
 		Session.set 'createError', null
-		
-		show_create_popup_at_coords(coords)
+		show_create_popup_at_coords(coords, template)
 
 Template.map.rendered = ->
 	console.log "Map rendered"
@@ -113,9 +112,9 @@ Template.map.destroyed = ->
 
 show_create_popup_at_coords = (coords, template) ->
 	$popup = $(".popup-container")
-	[width, height] = [$popup.outerWidth(), $popup.outerHeight()]
+	[width, map_height] = [$popup.outerWidth(), $(template.find(".map")).outerHeight()]
 
-	$popup.css top: coords.y-height-10, left: coords.x - (width / 2) + 10
+	$popup.css bottom: map_height-coords.y+15, left: coords.x - (width / 2) + 10
 	$popup.find("input:first").focus()
 
 hide_popup = ->
