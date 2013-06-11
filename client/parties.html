@@ -8,8 +8,8 @@
 </body>
 
 <template name="page">
-	{{> map}}
 	{{> details}}
+	{{> map}}
 </template>
 
 <template name="details">
@@ -42,7 +42,7 @@
 <template name="map">
 	<div class="map">
 		{{#constant}}
-			<svg width="730" height="700">
+			<svg>
 				<circle class="callout" cx="-100" cy="-100"></circle>
 				<g class="circles"></g>
 				<g class="labels"></g>

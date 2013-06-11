@@ -23,6 +23,14 @@ Meteor.loginAnonymously = (fn) ->
 		fn? and fn()
 
 
+	map_ratio = $(".map").outerWidth() / $(".map").outerHeight()
+	$svg = $(".map svg")
+
+	$(window).resize (event) ->
+		console.log map_ratio
+		width = $svg.outerWidth()
+		$svg.css height: width*map_ratio
+
 # # Template helpers and functions
 
 # ## Details area
@@ -58,6 +66,7 @@ Template.attendees.is_attending = ->
 Template.map.rendered = ->
 	self = this
 	self.node = self.find("svg")
+	$map = $(self.find(".map"))
 
 	unless self.handle
 		self.handle = Deps.autorun ->
@@ -69,13 +78,18 @@ Template.map.rendered = ->
 			radius = (party) ->
 				10 + Math.sqrt(attending(party)) * 5
 
+			to_percentage = (coord, what) ->
+				method = if what is "x" then "outerWidth" else "outerHeight"
+				(coord / $map[method]() * 100) + "%"
+
+			# Draw circles
 			# Set properties on the circles in the map according
 			# to properties from the party representing the circle.
 			update_circles = (group) ->		
 				group
 					.attr("id", (party) -> party._id)
-					.attr("cx", (party) -> party.x)
-					.attr("cy", (party) -> party.y)
+					.attr("cx", (party) -> to_percentage party.x, "x")
+					.attr("cy", (party) -> to_percentage party.y, "y")
 					.attr("r", radius)
 					.style("opacity", (party) -> 
 						if selected is party._id then 1 else 0.6)
@@ -84,8 +98,8 @@ Template.map.rendered = ->
 			update_attendees = (group) ->
 				group
 					.attr("id", (party) -> party._id)
-					.attr("x", (party) -> party.x)
-					.attr("y", (party) -> party.y + radius(party) / 2)
+					.attr("x", (party) -> to_percentage party.x, "x")
+					.attr("y", (party) -> to_percentage party.y + radius(party) / 2, "y")
 					.text((party) -> attending(party) or "")
 					.style("font-size", (party) -> radius(party) * 1.25 + "px")
 
@@ -116,8 +130,8 @@ Template.map.rendered = ->
 			        .transition().duration(250).ease("cubic-out")
 
 			if selected_party
-				callout.attr("cx", selected_party.x)
-					.attr("cy", selected_party.y)
+				callout.attr("cx", to_percentage selected_party.x, "x")
+					.attr("cy", to_percentage selected_party.y, "y")
 					.attr("r", radius(selected_party) + 10)
 					.attr("class", "callout")
 					.attr("display", '')
