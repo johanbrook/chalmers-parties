@@ -1,6 +1,7 @@
 # Client
 
 Meteor.subscribe "parties"
+Meteor.subscribe "dummies"
 
 Meteor.loginAnonymously = (fn) ->
 	Meteor.call 'login', anonymous: true, (err, user) ->
@@ -11,6 +12,12 @@ Meteor.startup ->
 	Meteor.loginAnonymously()
 
 # ## Details area
+
+Template.howMany.nrVisitors = ->
+	if Dummies.find() isnt undefined
+	    return Dummies.find().fetch().length
+
+	return 'Well well well...';
 
 Template.details.party = ->
 	Parties.findOne Session.get("selected")

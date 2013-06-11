@@ -45,6 +45,10 @@ mark {
 	text-align: center;
 }
 
+.visitors {
+	font-size: 1.2em;
+}
+
 .party-details {
 	text-align: left;
 	width: 50%;

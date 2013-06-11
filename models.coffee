@@ -1,6 +1,7 @@
 root = global ? window
 
 root.Parties = new Meteor.Collection "parties"
+root.Dummies = new Meteor.Collection "dummies"
 
 Parties.allow
 	insert: (user_id, party) ->
