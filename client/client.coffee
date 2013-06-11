@@ -42,10 +42,11 @@ Template.map.events
 		
 		Session.set 'createCoords', x: coords.x, y: coords.y
 		Session.set 'createError', null
-
+		
 		show_create_popup_at_coords(coords)
 
 Template.map.rendered = ->
+	console.log "Map rendered"
 	self = this
 	self.node = self.find("svg")
 
@@ -110,17 +111,15 @@ Template.map.destroyed = ->
 
 # ## The 'Create' area
 
-show_create_popup_at_coords = (coords) ->
-	Session.set 'showCreatePopup', true
-
-	$popup = $(".create-popup")
+show_create_popup_at_coords = (coords, template) ->
+	$popup = $(".popup-container")
 	[width, height] = [$popup.outerWidth(), $popup.outerHeight()]
 
 	$popup.css top: coords.y-height-10, left: coords.x - (width / 2) + 10
 	$popup.find("input:first").focus()
 
-Template.page.showCreatePopup = ->
-	Session.get 'showCreatePopup'
+hide_popup = ->
+	$(".popup-container").css(left: "-999em")
 
 Template.createPopup.events
 	'keydown' : (event, template) ->
@@ -136,13 +135,13 @@ Template.createPopup.events
 
 		if party.description.length and party.location.length
 			add_party(party)
-			Session.set 'showCreatePopup', false
+			hide_popup()
 		else
 			Session.set 'createError', "Lägg till en kort beskrivning och plats – hur ska man
 				annars vet vad din jävla fest är om?"
 
 	'click .close' : (event, template) ->
-		Session.set 'showCreatePopup', false
+		hide_popup()
 
 Template.createPopup.error = ->
 	Session.get 'createError'

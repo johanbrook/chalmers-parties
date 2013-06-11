@@ -10,10 +10,6 @@
 <template name="page">
 	{{> map}}
 	{{> details}}
-
-	{{#if showCreatePopup}}
-		{{> createPopup}}
-	{{/if}}
 </template>
 
 <template name="details">
@@ -48,6 +44,10 @@
 				<g class="circles"></g>
 				<g class="labels"></g>
 			</svg>
+
+			<div class="popup-container">
+				{{> createPopup}}
+			</div>
 		{{/constant}}
 	</div>
 </template>

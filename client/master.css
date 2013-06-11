@@ -89,13 +89,17 @@ mark {
 	Create popup
  */
 
-.create-popup {
+.popup-container {
 	position: absolute;
+	width: 200px;
+	left: -999em;
+ }
+
+.create-popup {
 	background-color: #fff;
-	padding: 1%;
+	padding: 10px;
 	border-radius: 3px;
 	box-shadow: rgba(0, 0, 0, 0.4) 0 10px 20px;
-	width: 200px;
 }
 
 label {
@@ -109,6 +113,7 @@ label {
 
 .create-popup footer {
 	margin-top: .5em;
+	overflow: hidden;
 }
 
 .create-popup .save {
@@ -172,7 +177,7 @@ label {
 /* Helpers */
 
 .msg {
-	font-size: .9em;
+	font-size: .8em;
 }
 
 .negative {
