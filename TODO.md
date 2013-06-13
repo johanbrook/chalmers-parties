@@ -6,5 +6,5 @@
 - [Done] Autofocus on first input field when adding party
 - [Done] Let the 'enter' key add a party
 - Use Geolocation API to sniff location?
-- Document the crap out of the code
+- [Done] Document the crap out of the code
 - Make it responsive for mobiles

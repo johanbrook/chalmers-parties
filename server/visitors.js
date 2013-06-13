@@ -1,3 +1,6 @@
+/*
+    From https://github.com/murilopolese/howmanypeoplearelooking
+ */
 Meteor.startup(function(){
     Dummies.remove({});
     Meteor.default_server.stream_server.register( Meteor.bindEnvironment( function(socket) {
