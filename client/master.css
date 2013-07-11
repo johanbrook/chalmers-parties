@@ -206,12 +206,12 @@ input[type="submit"] {
 	font-family: "Helvetica Neue", sans-serif;
 	font-size: 1.5em;
 
-	padding: 3px .5em;
+	padding: .5em 1.5em;
 	border-radius: 3px;
 	cursor: pointer;
 	border: 0;
 
-	box-shadow: #629623 0 5px 0;
+	box-shadow: #629623 0 5px 0, inset rgba(255,255,255, .3) 0 -1px 1px;
 }
 
 .btn:active,
