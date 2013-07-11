@@ -36,6 +36,7 @@ mark {
 	position: relative;
 	-webkit-touch-callout: none;
 	-webkit-user-select: none;
+	box-shadow: inset rgba(0,0,0, 0.4) 0 0 1px;
 }
 
 .details {
