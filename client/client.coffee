@@ -11,6 +11,14 @@ Meteor.subscribe "dummies"
 Meteor.startup ->
 	Meteor.loginAnonymously()
 
+	map_ratio = $(".map").outerWidth() / $(".map").outerHeight()
+	$svg = $(".map svg")
+
+	$(window).resize (event) ->
+		console.log map_ratio
+		width = $svg.outerWidth()
+		$svg.css height: width*map_ratio
+
 # In order to login anonymously, we create a method which calls
 # the built-in `login` function with a parameter hash which 
 # contains `anonymous: true`. This will be passed to our custom
@@ -21,15 +29,6 @@ Meteor.loginAnonymously = (fn) ->
 	Meteor.call 'login', anonymous: true, (err, user) ->
 		Accounts._makeClientLoggedIn(user.id, user.token) unless err
 		fn? and fn()
-
-
-	map_ratio = $(".map").outerWidth() / $(".map").outerHeight()
-	$svg = $(".map svg")
-
-	$(window).resize (event) ->
-		console.log map_ratio
-		width = $svg.outerWidth()
-		$svg.css height: width*map_ratio
 
 # # Template helpers and functions
 
