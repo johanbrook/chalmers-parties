@@ -8,7 +8,7 @@ red   = '\x1B[0;31m'
 green = '\x1B[0;32m'
 reset = '\x1B[0m'
 
-DEPLOY_URL = "chalmersparties.meteor.com"
+DEPLOY_URL = "party.johanbrook.com"
 
 log = (message, color = reset, explanation) ->
 	console.log color + message + reset + ' ' + (explanation or '')
