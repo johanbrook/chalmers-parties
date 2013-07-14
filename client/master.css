@@ -50,8 +50,12 @@ mark {
 }
 
 .details-container {
-	float: left;
+	position: fixed;
 	width: 40%;
+	right: 0;
+	top: 0;
+	bottom: 0;
+	background-color: #fff;
 }
 
 .details {
@@ -300,13 +304,14 @@ input[type="submit"]:active {
 	}
 
 
-	.map,
-	.details-container {
+	.map {
 		float: none;
 		width: 100%;
 	}
 
 	.details-container {
+		top: auto;
+		width: 100%;
 		-webkit-transition: max-height .3s ease-out;
 		overflow: hidden;
 		overflow-y: scroll;
