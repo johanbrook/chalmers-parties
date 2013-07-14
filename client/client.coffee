@@ -11,14 +11,6 @@ Meteor.subscribe "dummies"
 Meteor.startup ->
 	Meteor.loginAnonymously()
 
-	map_ratio = $(".map").outerWidth() / $(".map").outerHeight()
-	$svg = $(".map svg")
-
-	$(window).resize (event) ->
-		console.log map_ratio
-		width = $svg.outerWidth()
-		$svg.css height: width*map_ratio
-
 # In order to login anonymously, we create a method which calls
 # the built-in `login` function with a parameter hash which 
 # contains `anonymous: true`. This will be passed to our custom
@@ -77,19 +69,15 @@ Template.map.rendered = ->
 			radius = (party) ->
 				10 + Math.sqrt(attending(party)) * 5
 
-			to_percentage = (coord, what) ->
-				method = if what is "x" then "outerWidth" else "outerHeight"
-				(coord / $map[method]() * 100) + "%"
-
 			# Draw circles
 			# Set properties on the circles in the map according
 			# to properties from the party representing the circle.
 			update_circles = (group) ->		
 				group
 					.attr("id", (party) -> party._id)
-					.attr("cx", (party) -> to_percentage party.x, "x")
-					.attr("cy", (party) -> to_percentage party.y, "y")
-					.attr("r", radius)
+					.attr("cx", (party) -> party.x)
+					.attr("cy", (party) -> party.y)
+					.attr("r", (party) -> radius party)
 					.style("opacity", (party) -> 
 						if selected is party._id then 1 else 0.6)
 
@@ -97,8 +85,8 @@ Template.map.rendered = ->
 			update_attendees = (group) ->
 				group
 					.attr("id", (party) -> party._id)
-					.attr("x", (party) -> to_percentage party.x, "x")
-					.attr("y", (party) -> to_percentage party.y + radius(party) / 2, "y")
+					.attr("x", (party) -> party.x)
+					.attr("y", (party) -> party.y + radius(party) / 2)
 					.text((party) -> attending(party) or "")
 					.style("font-size", (party) -> radius(party) * 1.25 + "px")
 
@@ -129,8 +117,8 @@ Template.map.rendered = ->
 			        .transition().duration(250).ease("cubic-out")
 
 			if selected_party
-				callout.attr("cx", to_percentage selected_party.x, "x")
-					.attr("cy", to_percentage selected_party.y, "y")
+				callout.attr("cx", selected_party.x)
+					.attr("cy", selected_party.y)
 					.attr("r", radius(selected_party) + 10)
 					.attr("class", "callout")
 					.attr("display", '')
@@ -153,6 +141,11 @@ Template.createPopup.error = ->
 # Here we hook up some events to DOM objects in the templates.
 
 # ## Attendees
+
+Template.details.events
+	"click, toggle .panel-toggle" : (event, template) ->
+		$details = $(template.firstNode)
+		$details.toggleClass "show"
 
 Template.attendees.events
 	# When clicking the 'Attend' button, we call the `attend_party()` function.

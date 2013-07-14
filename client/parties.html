@@ -8,13 +8,13 @@
 </body>
 
 <template name="page">
-	{{> details}}
 	{{> map}}
+	{{> details}}
 </template>
 
 <template name="details">
 	<section class="details">
-
+		<a class="panel-toggle">≣</a>
 		{{#if party}}
 			{{#with party}}
 				<h1>{{description}}</h1>
@@ -41,6 +41,7 @@
 
 <template name="map">
 	<div class="map">
+		<div class="content">
 		{{#constant}}
 			<svg>
 				<circle class="callout" cx="-100" cy="-100"></circle>
@@ -52,6 +53,7 @@
 				{{> createPopup}}
 			</div>
 		{{/constant}}
+		</div>
 	</div>
 </template>
 
