@@ -314,10 +314,9 @@ input[type="submit"]:active {
 
 	/* Override centered position for popup */
 	.popup-container {
-		bottom: auto !important;
-		left: 4vw !important;
-		right: 4vw !important;
-		top: 4vw !important;
+		left: 4vw;
+		right: 4vw;
+		top: 18vw;
 		width: auto;
 		-webkit-transform-origin: center center;
 	}
