@@ -188,8 +188,9 @@ Template.createPopup.events
 	# Let users create a party by hitting the 'enter' key
 	# when done instead of clicking the 'Save' button.
 	'keydown' : (event, template) ->
-		if event.which is 13
-			$(template.find(".save")).trigger("click")
+		switch event.which
+			when 13 then $(template.find(".save")).trigger("click")
+			when 27 then hide_popup()
 
 	# When finished, hitting the 'Save' button should try
 	# to save the party.
