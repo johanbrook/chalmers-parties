@@ -49,10 +49,13 @@ mark {
 	-webkit-user-select: none;
 }
 
-.details {
+.details-container {
 	float: left;
-	padding: 1%;
 	width: 40%;
+}
+
+.details {
+	padding: 1%;
 	text-align: center;
 }
 
@@ -283,12 +286,12 @@ input[type="submit"]:active {
 	}
 
 	.map,
-	.details {
+	.details-container {
 		float: none;
 		width: 100%;
 	}
 
-	.details {
+	.details-container {
 		-webkit-transform: translate(0, 80%);
 		-webkit-transition: -webkit-transform .3s ease-out;
 		background-color: #fff;
@@ -300,7 +303,7 @@ input[type="submit"]:active {
 		box-shadow: rgba(0,0,0, 0.3) 0 -1px 5px;
 	}
 
-	.details.show {
+	.details-container.show {
 		-webkit-transform: translate(0, 0);
 	}
 

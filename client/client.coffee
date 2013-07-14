@@ -7,7 +7,7 @@ Meteor.subscribe "dummies"
 
 # # Initialization
 
-# Login on startup.
+# Meteor startup
 Meteor.startup ->
 	Meteor.loginAnonymously()
 	Meteor.hideToolbar()
@@ -23,8 +23,10 @@ Meteor.loginAnonymously = (fn) ->
 		Accounts._makeClientLoggedIn(user.id, user.token) unless err
 		fn? and fn()
 
+# Hide toolbar on iPhone
 Meteor.hideToolbar = ->
 	window.top.scrollTo(0, 1);
+
 # # Template helpers and functions
 
 # ## Details area
@@ -62,6 +64,7 @@ Template.map.rendered = ->
 	self.node = self.find("svg")
 	$map = $(self.find(".map"))
 
+	# Setup custom touch events for the map
 	bindTouchEvents(self)
 
 	unless self.handle
@@ -150,7 +153,7 @@ Template.createPopup.error = ->
 Template.details.events
 	"tap .panel-toggle" : (event, template) ->
 		event.preventDefault()
-		$details = $(template.firstNode)
+		$details = $(".details-container")
 		$details.toggleClass "show"
 
 Template.attendees.events
