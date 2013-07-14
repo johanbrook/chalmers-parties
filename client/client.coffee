@@ -148,13 +148,15 @@ Template.createPopup.error = ->
 
 # Here we hook up some events to DOM objects in the templates.
 
-# ## Attendees
+# ## General
 
-Template.details.events
+Template.page.events
 	"tap .panel-toggle" : (event, template) ->
 		event.preventDefault()
 		$details = $(".details-container")
 		$details.toggleClass "show"
+
+# ## Attendees
 
 Template.attendees.events
 	# When clicking the 'Attend' button, we call the `attend_party()` function.

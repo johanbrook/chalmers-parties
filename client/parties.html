@@ -9,6 +9,7 @@
 </body>
 
 <template name="page">
+	<a class="panel-toggle">≣</a>
 	{{> map}}
 	
 	<div class="details-container">
@@ -18,7 +19,6 @@
 
 <template name="details">
 	<section class="details">
-		<a class="panel-toggle">≣</a>
 		{{#if party}}
 			{{#with party}}
 				<h1>{{description}}</h1>
