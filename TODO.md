@@ -7,4 +7,4 @@
 - [Done] Let the 'enter' key add a party
 - Use Geolocation API to sniff location?
 - [Done] Document the crap out of the code
-- Make it responsive for mobiles
+- [Done] Make it responsive for mobiles
