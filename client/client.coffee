@@ -11,6 +11,7 @@ Meteor.subscribe "dummies"
 Meteor.startup ->
 	Meteor.loginAnonymously()
 	Meteor.hideToolbar()
+	Meteor.centerMap()
 
 # In order to login anonymously, we create a method which calls
 # the built-in `login` function with a parameter hash which 
@@ -26,6 +27,14 @@ Meteor.loginAnonymously = (fn) ->
 # Hide toolbar on iPhone
 Meteor.hideToolbar = ->
 	window.top.scrollTo(0, 1);
+
+# Center the map on Chalmers' campus
+Meteor.centerMap = ->
+	coords =
+		Left: 167
+		Top: 202
+	_.map coords, (val, key) ->
+		$(".map")["scroll"+key](val)
 
 # # Template helpers and functions
 
