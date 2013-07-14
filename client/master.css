@@ -254,6 +254,7 @@ input[type="submit"] {
 	text-align: center;
 	font-family: "Helvetica Neue", sans-serif;
 	font-size: 1.5em;
+	text-shadow: rgba(0,0,0, 0.3) 0 -1px 1px;
 
 	padding: .5em 1.5em;
 	border-radius: 3px;
@@ -265,8 +266,7 @@ input[type="submit"] {
 button:active,
 input[type="button"]:active,
 input[type="submit"]:active {
-	top: 3px;
-	box-shadow: #629623 0 2px 0;
+	-webkit-box-shadow: inset rgba(0,0,0, 0.4) 0 1px 4px;
 }
 
 @media only screen and (max-width: 800px) {
