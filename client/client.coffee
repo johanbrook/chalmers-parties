@@ -244,14 +244,9 @@ show_create_popup_at_coords = (coords, template) ->
 coordsRelativeToElement = (event, element) ->
 	offset = $(element).offset()
 	[scrollLeft, scrollTop] = [event.currentTarget.scrollLeft, event.currentTarget.scrollTop]
-	
-	console.log event
-	console.log scrollLeft, scrollTop
-	console.log "Offset: ", offset
-	console.log event.pageX, event.pageY
-	data = {x: event.pageX - offset.left + scrollLeft, y: event.pageY - offset.top + scrollTop}
-
-	console.log data.x, data.y
+	data = 
+		x: event.pageX - offset.left + scrollLeft
+		y: event.pageY - offset.top + scrollTop
 
 	return data
 
@@ -278,4 +273,9 @@ attend_party = (party) ->
 
 # Hides the 'Create party' popup.
 hide_popup = ->
-	$(".popup-container").removeClass("show")
+	$popup = $(".popup-container")
+	$popup
+	.find(".description").val("").end()
+	.find(".host").val("").end()
+	.find(".location").val("").end()
+	.removeClass("show")
