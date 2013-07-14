@@ -128,7 +128,7 @@ mark {
  */
 
 .popup-container {
-	z-index: 201;
+	z-index: 1000;
 	position: absolute;
 	width: 200px;
 	left: -999em;
@@ -270,6 +270,14 @@ input[type="submit"]:active {
 }
 
 @media only screen and (max-width: 800px) {
+
+	input[type="text"] {
+		display: inline-block;
+		-webkit-appearance: none;
+		border: 1px solid #ccc;
+		padding: 10px;
+		font-size: 16px;
+	}
 
 	.panel-toggle {
 		visibility: visible;
