@@ -53,10 +53,6 @@ mark {
 	text-align: center;
 }
 
-.details.show {
-	-webkit-transform: translate(0, 20px);
-}
-
 .panel-toggle {
 	position: absolute;
 	left: 8px;
@@ -279,9 +275,13 @@ input[type="submit"]:active {
 		background-color: #fff;
 		position: absolute;
 		z-index: 101;
-		top: 0;
+		top: 5vh;
 		left: 0;
 		bottom: 0;
 		box-shadow: rgba(0,0,0, 0.3) 0 -1px 5px;
+	}
+
+	.details.show {
+		-webkit-transform: translate(0, 0);
 	}
 }

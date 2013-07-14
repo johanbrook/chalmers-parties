@@ -147,6 +147,7 @@ Template.createPopup.error = ->
 
 Template.details.events
 	"tap .panel-toggle" : (event, template) ->
+		event.preventDefault()
 		$details = $(template.firstNode)
 		$details.toggleClass "show"
 
