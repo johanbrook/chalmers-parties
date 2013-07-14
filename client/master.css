@@ -42,6 +42,9 @@ mark {
 	height: 700px;
 	background: transparent url("/map.png") no-repeat;
 	position: relative;
+}
+
+.map, .content, .map svg {
 	-webkit-touch-callout: none;
 	-webkit-user-select: none;
 }

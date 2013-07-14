@@ -62,6 +62,8 @@ Template.map.rendered = ->
 	self.node = self.find("svg")
 	$map = $(self.find(".map"))
 
+	bindTouchEvents(self)
+
 	unless self.handle
 		self.handle = Deps.autorun ->
 			selected = Session.get 'selected'
@@ -167,9 +169,10 @@ Template.map.events
 
 	# When doubleclicking on the map we want to add a new party. 
 	"dblclick .map" : (event, template) ->
+		event.stopPropagation()
 		# Map out the correct coordinates on the map for the party.
 		coords = coordsRelativeToElement(event, event.currentTarget)
-		
+
 		Session.set 'createCoords', x: coords.x, y: coords.y
 		Session.set 'createError', null
 
@@ -210,19 +213,43 @@ Template.createPopup.events
 
 # Various helper functions to abstract away boring logic from the event code et al.
 
+# Bind custom touch events, i.e. event types which aren't
+# supported by Meteor.
+bindTouchEvents = (template) ->
+	$map = $(template.firstNode)
+	$map.on "longTap", (evt) ->
+		coords = coordsRelativeToElement(evt, evt.currentTarget)
+		Session.set 'createCoords', x: coords.x, y: coords.y
+		Session.set 'createError', null
+
+		show_create_popup()
+
+show_create_popup = ->
+	$popup = $(".popup-container")
+	$popup.addClass("show").find("input:first").focus()
+	return $popup
+
 # Show the 'Create Party' popup at certain coordinates in the map. 
 show_create_popup_at_coords = (coords, template) ->
-	$popup = $(".popup-container")
+	$popup = show_create_popup()
 	[width, map_height] = [$popup.outerWidth(), $(template.find(".map")).outerHeight()]
 
 	$popup.css bottom: map_height-coords.y+15, left: coords.x - (width / 2) + 10
-	$popup.addClass("show").find("input:first").focus()
 
 # Compute the correct coordinates in an `element` stemmed from and `event`.
 coordsRelativeToElement = (event, element) ->
 	offset = $(element).offset()
+	[scrollLeft, scrollTop] = [event.currentTarget.scrollLeft, event.currentTarget.scrollTop]
+	
+	console.log event
+	console.log scrollLeft, scrollTop
+	console.log "Offset: ", offset
+	console.log event.pageX, event.pageY
+	data = {x: event.pageX - offset.left + scrollLeft, y: event.pageY - offset.top + scrollTop}
 
-	return {x: event.pageX - offset.left, y: event.pageY - offset.top}
+	console.log data.x, data.y
+
+	return data
 
 # Adds a new party to the database collection by calling our exposed
 # `create_party` method (see *models.coffee*) with given parameters.
