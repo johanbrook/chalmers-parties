@@ -176,13 +176,10 @@ Template.map.events
 	"dblclick .map" : (event, template) ->
 		event.stopPropagation()
 		# Map out the correct coordinates on the map for the party.
-		coords = coordsRelativeToElement(event, event.currentTarget)
-
-		Session.set 'createCoords', x: coords.x, y: coords.y
-		Session.set 'createError', null
+		setCoordinates(event)
 
 		# Show the "Create party" popup along with the coords.
-		show_create_popup_at_coords(coords, template)
+		show_create_popup_at_position(event, template)
 
 # ## The "Create Party" popup
 
@@ -223,24 +220,50 @@ Template.createPopup.events
 # supported by Meteor.
 bindTouchEvents = (template) ->
 	$map = $(template.firstNode)
+
+	# On long tap, show create dialog and center it in the map viewport.
 	$map.on "longTap", (evt) ->
-		coords = coordsRelativeToElement(evt, evt.currentTarget)
-		Session.set 'createCoords', x: coords.x, y: coords.y
-		Session.set 'createError', null
+		setCoordinates(evt)
 
-		show_create_popup()
+		[w, h] = [$(".popup-container").outerWidth(), $(".popup-container").outerHeight()]
 
-show_create_popup = ->
-	$popup = $(".popup-container")
-	$popup.addClass("show").find("input:first").focus()
+		center = 
+			x: $map[0].scrollLeft + ($map.outerWidth() / 2) - (w / 2)
+			y: $map[0].scrollTop + ($map.outerHeight() / 2) - (h / 2)
+
+		show_create_popup_at_coords(center, template, focus: false)
+
+# Reveal the 'Create Party' popup.
+show_create_popup = (options) ->
+	defaults =
+		focus: true
+	settings = $.extend {}, defaults, options	
+	$popup = $(".popup-container").addClass("show")
+	$popup.find("input:first").focus() if settings.focus
+
 	return $popup
 
 # Show the 'Create Party' popup at certain coordinates in the map. 
-show_create_popup_at_coords = (coords, template) ->
-	$popup = show_create_popup()
+show_create_popup_at_coords = (coords, template, options) ->
+	$popup = show_create_popup(options)
+	$popup.css top: coords.y, left: coords.x
+
+# Show the 'Create Party' popup at the position where the user double clicked/tapped
+# on the map.
+show_create_popup_at_position = (event, template, options) ->
+	$popup = show_create_popup(options)
+	coords = coordsRelativeToElement(event, event.currentTarget)
 	[width, map_height] = [$popup.outerWidth(), $(template.find(".map")).outerHeight()]
 
 	$popup.css bottom: map_height-coords.y+15, left: coords.x - (width / 2) + 10
+
+# Fetch the coordinates for the point selected in the map, and set global
+# session variable.
+setCoordinates = (event) ->
+	coords = coordsRelativeToElement(event, event.currentTarget)
+	Session.set 'createCoords', x: coords.x, y: coords.y
+	Session.set 'createError', null
+	return coords
 
 # Compute the correct coordinates in an `element` stemmed from and `event`.
 coordsRelativeToElement = (event, element) ->
@@ -251,6 +274,10 @@ coordsRelativeToElement = (event, element) ->
 		y: event.pageY - offset.top + scrollTop
 
 	return data
+
+# Returns the center position of the map
+getMapCenter = ->
+	[$(".map").outerWidth() / 2, $(".map").outerHeight() / 2]
 
 # Adds a new party to the database collection by calling our exposed
 # `create_party` method (see *models.coffee*) with given parameters.

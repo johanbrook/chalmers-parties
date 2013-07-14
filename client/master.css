@@ -292,9 +292,6 @@ input[type="submit"]:active {
 		height: 100%;
 	}
 
-	.map .content {
-		position: static;
-	}
 
 	.map,
 	.details-container {
@@ -322,11 +319,8 @@ input[type="submit"]:active {
 
 	/* Override centered position for popup */
 	.popup-container {
-		left: 4vw;
-		right: 4vw;
-		top: 18vw;
-		width: auto;
 		-webkit-transform-origin: center center;
+		width: 80vw;
 	}
 
 	.create-popup::after {
