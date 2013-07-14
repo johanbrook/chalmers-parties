@@ -146,6 +146,7 @@ Template.createPopup.error = ->
 # ## Attendees
 
 Template.details.events
+	"click, tap .panel-toggle" : (event, template) ->
 	"click, toggle .panel-toggle" : (event, template) ->
 		$details = $(template.firstNode)
 		$details.toggleClass "show"
