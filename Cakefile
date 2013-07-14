@@ -19,6 +19,13 @@ task "party", ->
 task "wipe", ->
 	deploy true, log("* Restarting the party ...", red)
 
+task "docs", ->
+	command = "docco *.coffee client/*.coffee server/*.coffee -o public/docs"
+	docco = exec command, (error, stdout, stderr) ->
+		throw error if error
+		log "* Generated docs", green
+	docco.stdout.on "data", (data) -> print data.toString()
+
 deploy = (reset = false, callback) ->
 	if typeof reset is "function"
 		callback = reset
