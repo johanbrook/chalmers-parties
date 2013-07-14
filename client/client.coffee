@@ -298,6 +298,7 @@ getMapCenter = ->
 # Toggle the details rollup when viewing from mobile.
 toggleDetails = ->
 	$(".details-container").toggleClass "show"
+	$(".panel-toggle").toggleClass "active"
 
 # Adds a new party to the database collection by calling our exposed
 # `create_party` method (see *models.coffee*) with given parameters.
