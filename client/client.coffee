@@ -153,8 +153,14 @@ Template.createPopup.error = ->
 Template.page.events
 	"tap .panel-toggle" : (event, template) ->
 		event.preventDefault()
-		$details = $(".details-container")
-		$details.toggleClass "show"
+		toggleDetails()
+
+# ## Details
+
+Template.details.events
+	"tap h1" : (event, template) ->
+		event.preventDefault()
+		toggleDetails()
 
 # ## Attendees
 
@@ -278,6 +284,11 @@ coordsRelativeToElement = (event, element) ->
 # Returns the center position of the map
 getMapCenter = ->
 	[$(".map").outerWidth() / 2, $(".map").outerHeight() / 2]
+
+
+# Toggle the details rollup when viewing from mobile.
+toggleDetails = ->
+	$(".details-container").toggleClass "show"
 
 # Adds a new party to the database collection by calling our exposed
 # `create_party` method (see *models.coffee*) with given parameters.
