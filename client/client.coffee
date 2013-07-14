@@ -10,6 +10,7 @@ Meteor.subscribe "dummies"
 # Login on startup.
 Meteor.startup ->
 	Meteor.loginAnonymously()
+	Meteor.hideToolbar()
 
 # In order to login anonymously, we create a method which calls
 # the built-in `login` function with a parameter hash which 
@@ -22,6 +23,8 @@ Meteor.loginAnonymously = (fn) ->
 		Accounts._makeClientLoggedIn(user.id, user.token) unless err
 		fn? and fn()
 
+Meteor.hideToolbar = ->
+	window.top.scrollTo(0, 1);
 # # Template helpers and functions
 
 # ## Details area
