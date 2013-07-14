@@ -168,7 +168,6 @@ Template.page.events
 
 Template.details.events
 	"tap h1" : (event, template) ->
-		event.preventDefault()
 		toggleDetails()
 
 # ## Attendees
