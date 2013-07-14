@@ -216,7 +216,7 @@ show_create_popup_at_coords = (coords, template) ->
 	[width, map_height] = [$popup.outerWidth(), $(template.find(".map")).outerHeight()]
 
 	$popup.css bottom: map_height-coords.y+15, left: coords.x - (width / 2) + 10
-	$popup.find("input:first").focus()
+	$popup.addClass("show").find("input:first").focus()
 
 # Compute the correct coordinates in an `element` stemmed from and `event`.
 coordsRelativeToElement = (event, element) ->
@@ -247,4 +247,4 @@ attend_party = (party) ->
 
 # Hides the 'Create party' popup.
 hide_popup = ->
-	$(".popup-container").css(left: "-999em")
+	$(".popup-container").removeClass("show")
