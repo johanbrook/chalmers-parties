@@ -7,7 +7,7 @@ Meteor.subscribe "dummies"
 
 # # Initialization
 
-# Meteor startup
+# Meteor startup.
 Meteor.startup ->
 	Meteor.loginAnonymously()
 	Meteor.hideToolbar()
@@ -16,7 +16,7 @@ Meteor.startup ->
 # In order to login anonymously, we create a method which calls
 # the built-in `login` function with a parameter hash which 
 # contains `anonymous: true`. This will be passed to our custom
-# login handler (see *server.coffee*). 
+# login handler (see [server.coffee](server.html)). 
 # 
 # On success, make the user logged in with our generated token and user id.
 Meteor.loginAnonymously = (fn) ->
@@ -24,12 +24,13 @@ Meteor.loginAnonymously = (fn) ->
 		Accounts._makeClientLoggedIn(user.id, user.token) unless err
 		fn? and fn()
 
-# Hide toolbar on iPhone
+# Hide toolbar on iPhone.
 Meteor.hideToolbar = ->
 	window.top.scrollTo(0, 1);
 
-# Center the map on Chalmers' campus
+# Center the map on Chalmers' campus.
 Meteor.centerMap = ->
+	# Coordinates are manually pulled from map by eye-sight.
 	coords =
 		Left: 167
 		Top: 202
@@ -73,7 +74,7 @@ Template.map.rendered = ->
 	self.node = self.find("svg")
 	$map = $(self.find(".map"))
 
-	# Setup custom touch events for the map
+	# Setup custom touch events for the map when rendered.
 	bindTouchEvents(self)
 
 	unless self.handle
@@ -159,6 +160,8 @@ Template.createPopup.error = ->
 
 # ## General
 
+# Let visitors toggle the details panel by tapping the
+# toggle button in the page corner.
 Template.page.events
 	"tap .panel-toggle" : (event, template) ->
 		event.preventDefault()
@@ -166,6 +169,8 @@ Template.page.events
 
 # ## Details
 
+# Also let visitors toggle the panel by tapping the heading
+# area in the details view.
 Template.details.events
 	"tap h1" : (event, template) ->
 		toggleDetails()
@@ -192,7 +197,8 @@ Template.map.events
 		# Map out the correct coordinates on the map for the party.
 		setCoordinates(event)
 
-		# Show the "Create party" popup along with the coords.
+		# Show the "Create party" popup on the position where the visitor
+		# double-clicked.
 		show_create_popup_at_position(event, template)
 
 # ## The "Create Party" popup
@@ -231,12 +237,14 @@ Template.createPopup.events
 # Various helper functions to abstract away boring logic from the event code et al.
 
 # Bind custom touch events, i.e. event types which aren't
-# supported by Meteor.
+# supported by Meteor. I'm using the touch events from [Zepto.js](https://github.com/madrobby/zepto),
+# which do the heavy lifting.
 bindTouchEvents = (template) ->
 	$map = $(template.firstNode)
 
 	# On long tap, show create dialog and center it in the map viewport.
 	$map.on "longTap", (evt) ->
+		# Save the coordinates globally.
 		setCoordinates(evt)
 
 		[w, h] = [$(".popup-container").outerWidth(), $(".popup-container").outerHeight()]
@@ -245,9 +253,10 @@ bindTouchEvents = (template) ->
 			x: $map[0].scrollLeft + ($map.outerWidth() / 2) - (w / 2)
 			y: $map[0].scrollTop + ($map.outerHeight() / 2) - (h / 2)
 
+		# Show the popup dialog at the center of the viewport.
 		show_create_popup_at_coords(center, template, focus: false)
 
-# Reveal the 'Create Party' popup.
+# Reveals the 'Create Party' popup.
 show_create_popup = (options) ->
 	defaults =
 		focus: true
@@ -282,6 +291,8 @@ setCoordinates = (event) ->
 # Compute the correct coordinates in an `element` stemmed from and `event`.
 coordsRelativeToElement = (event, element) ->
 	offset = $(element).offset()
+	# Remember to account for the scroll distance in the map for getting the
+	# 'true' position on screen.
 	[scrollLeft, scrollTop] = [event.currentTarget.scrollLeft, event.currentTarget.scrollTop]
 	data = 
 		x: event.pageX - offset.left + scrollLeft
@@ -320,7 +331,7 @@ add_party = (party) ->
 attend_party = (party) ->
 	Meteor.call 'attend', party or Session.get('selected'), Meteor.userId()
 
-# Hides the 'Create party' popup.
+# Hides the 'Create party' popup and clears the input fields.
 hide_popup = ->
 	$popup = $(".popup-container")
 	$popup
