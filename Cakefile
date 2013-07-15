@@ -8,7 +8,7 @@ red   = '\x1B[0;31m'
 green = '\x1B[0;32m'
 reset = '\x1B[0m'
 
-DEPLOY_URL = "party.johanbrook.com"
+DEPLOY_URL = process.env.PARTY_URL
 
 log = (message, color = reset, explanation) ->
 	console.log color + message + reset + ' ' + (explanation or '')
