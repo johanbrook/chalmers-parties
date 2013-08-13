@@ -35,6 +35,12 @@ a {
 	color: #aaa;
 }
 
+footer {
+	font-size: .8em;
+	color: #999;
+	margin-top: 8em;
+}
+
 .map {
 	float: left;
 	box-shadow: inset rgba(0,0,0, 0.4) 0 0 1px;
