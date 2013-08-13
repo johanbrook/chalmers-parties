@@ -85,7 +85,7 @@ Template.map.rendered = ->
 			# Helper function to compute an arbitrary radius number
 			# for a given `party`.
 			radius = (party) ->
-				10 + Math.sqrt(attending(party)) * 5
+				10 + Math.sqrt(attending(party)) * 3
 
 			# Draw circles
 			# Set properties on the circles in the map according
@@ -137,7 +137,7 @@ Template.map.rendered = ->
 			if selected_party
 				callout.attr("cx", selected_party.x)
 					.attr("cy", selected_party.y)
-					.attr("r", radius(selected_party) + 10)
+					.attr("r", radius(selected_party) + 8)
 					.attr("class", "callout")
 					.attr("display", '')
 			else
