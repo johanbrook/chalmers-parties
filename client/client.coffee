@@ -2,8 +2,8 @@
 
 # The client has to subscribe to the `parties` and `dummies`
 # collections from the server.
-Meteor.subscribe "parties"
-Meteor.subscribe "dummies"
+#Meteor.subscribe "parties"
+#Meteor.subscribe "dummies"
 
 # # Initialization
 

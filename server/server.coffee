@@ -3,11 +3,11 @@
 # On the server, we're *publishing* certain collections to the client, since
 # we've turned off the `autopublish` package. 
 
-Meteor.publish "parties", ->
-	Parties.find()
+#Meteor.publish "parties", ->
+#	Parties.find()
 
-Meteor.publish "dummies", ->
-	Dummies.find()
+#Meteor.publish "dummies", ->
+#	Dummies.find()
 
 # For anonymous logins to work, we're registering a login handler to
 # deal with "glueing" in between the client request and the server response.
