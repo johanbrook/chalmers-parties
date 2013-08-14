@@ -19,6 +19,19 @@ Parties.allow
 	remove: (user_id, party) ->
 		return false
 
+# ## Routes
+
+Meteor.Router.add "/parties/clean", "DELETE", ->
+	console.log "Removing all parties ..."
+	Parties.remove({})
+	[204, "No Content"]
+
+Meteor.Router.add "/parties/:id", "DELETE", (id) ->
+	console.log "Removing party with id #{id} ..."
+	Parties.remove(id)
+	[204, "No Content"]
+
+
 # ## Methods
 
 Meteor.methods
