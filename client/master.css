@@ -130,6 +130,9 @@ footer {
 	fill: red;
 	cursor: pointer;
 }
+.map circle.future {
+	fill: #55B;
+}
 
 .map text {
     text-anchor: middle;
@@ -144,6 +147,10 @@ footer {
     stroke-opacity: .8;
     fill: none;
     stroke: red;
+}
+
+.map .callout.future {
+	stroke: #55B;
 }
 
 /*

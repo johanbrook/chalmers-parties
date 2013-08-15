@@ -93,6 +93,7 @@ Template.map.rendered = ->
 			update_circles = (group) ->		
 				group
 					.attr("id", (party) -> party._id)
+					.attr("class", (party) -> "future" if party.future)
 					.attr("cx", (party) -> party.x)
 					.attr("cy", (party) -> party.y)
 					.attr("r", (party) -> radius party)
@@ -140,6 +141,8 @@ Template.map.rendered = ->
 					.attr("r", radius(selected_party) + 8)
 					.attr("class", "callout")
 					.attr("display", '')
+
+				callout.attr("class", "callout future") if selected_party.future
 			else
 				callout.attr("display", 'none')
 
@@ -218,6 +221,7 @@ Template.createPopup.events
 			description: template.find(".description").value
 			location: template.find(".location").value
 			host: template.find(".host").value
+			future: not $(template.find("#schedule")).is(":checked")
 			coords: Session.get 'createCoords'
 
 		# Only add the party if description and location exists.
@@ -317,6 +321,7 @@ add_party = (party) ->
 		description: party.description
 		location: party.location
 		host: party.host
+		future: party.future
 		x: party.coords.x
 		y: party.coords.y
 	, (error, the_party) ->

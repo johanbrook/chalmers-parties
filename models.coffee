@@ -44,6 +44,7 @@ Meteor.methods
 			description: String
 			location: NonEmptyString
 			host: String
+			future: Boolean
 			x: Number
 			y: Number
 		)
@@ -64,6 +65,7 @@ Meteor.methods
 			description: options.description
 			location: options.location
 			host: options.host
+			future: options.future
 			# Note that we don't have any attendees yet, hence the empty array. 
 			attendees: []
 
